@@ -14,10 +14,8 @@ class ApplicationController < ActionController::Base
 
     def require_user
         if !logged_in?
-            respond_to do |format|
-            format.html { redirect_to login_path, notice: "You must be logged in to perform that action." }
-            format.json { render json: { error: "You must be logged in to perform that action." }, status: :unauthorized }
-            end
+            flash[:error] = "You must be logged in to perform that action."
+            redirect_to login_path
         end
     end
 
